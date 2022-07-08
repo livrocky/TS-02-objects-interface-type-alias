@@ -45,3 +45,13 @@ const addResult = add(1, 5, 9);
 console.log('addResult ===', addResult);
 const minusResult = minus(1, 5, 9);
 console.log('minusResult ===', minusResult);
+
+interface UserInterface1 {
+  name: string;
+  surname: string;
+  sex: string;
+  age: number;
+  income: number;
+  married: boolean;
+  hasCar: boolean;
+}
