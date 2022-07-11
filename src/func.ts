@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
 // isiimportuojam people ir interface
-import { people, UserInfs } from './data/people.js';
+import { people, UserInfs } from './data/persons.js';
 
 // 1. parasyti Fn kuri atspausdina visus vyrus
 
@@ -32,14 +31,36 @@ function getDriversObj(arr: UserInfs[]): Drivers {
     man: 0,
     woman: 0,
   };
-  arr.filter((p: UserInfs) => p.hasCar).forEach((p: UserInfs): void => {
-    if (p.sex === 'male') {
-      localDrivers.man += 1;
-    } else {
-      localDrivers.woman += 1;
-    }
-  });
+  arr
+    .filter((p: UserInfs): boolean => p.hasCar)
+    .forEach((p: UserInfs): void => {
+      if (p.sex === 'male') {
+        localDrivers.man = localDrivers.man + 1;
+      } else {
+        localDrivers.woman++;
+      }
+    });
   return localDrivers;
 }
+function getDriversObjReduce(arr: UserInfs[]): Drivers {
+  const startingPoint: Drivers = {
+    man: 0,
+    woman: 0,
+  };
+
+  return arr.reduce((localDrivers: Drivers, currentPerson: UserInfs) => {
+    if (currentPerson.hasCar === true) {
+      if (currentPerson.sex === 'male') {
+        localDrivers.man = localDrivers.man + 1;
+      } else {
+        localDrivers.woman++;
+      }
+    }
+
+    return localDrivers;
+  }, startingPoint);
+}
 const rez = getDriversObj(people);
-console.log('rez===', rez);
+console.log('rez ===', rez);
+const reduceRez = getDriversObjReduce(people);
+console.log('reduceRez ===', reduceRez);
